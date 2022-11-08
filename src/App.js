@@ -5,9 +5,11 @@ import Main from './Layout/Main';
 import Home from './component/Home/Home';
 import Blog from './component/Blog/Blog';
 import Review from './component/Review/Review';
-import Login from './component/Login/Login';
 import Services from './component/Services/Services';
-import Register from './component/Login/Register/Register';
+import Register from './component/Register/Register';
+import LogIn from './component/SingIn/LogIn';
+
+
 
 
 function App() {
@@ -16,9 +18,9 @@ function App() {
      {path:"/", element:<Home />},
      {path:"/blog", element:<Blog />},
      {path:"/review", element:<Review />},
-     {path:"/login", element:<Login />},
+     {path:"/login", element:<LogIn /> },
      {path:"/services", element:<Services />},
-     {path:"/register", element:<Register />}
+     {path:"/register", element:<Register /> }
   
     ]}
   ])
