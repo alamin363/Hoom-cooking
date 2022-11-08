@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { contextProvider } from "./AuthContext";
+import { contextProvider } from "../Context/AuthContext";
 
 
 const Login = () => {
