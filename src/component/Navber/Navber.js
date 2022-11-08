@@ -21,7 +21,7 @@ const Navber = () => {
         <NavLink
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
           to="/"
-          active={true}
+          active="true"
         >
           Home
         </NavLink>

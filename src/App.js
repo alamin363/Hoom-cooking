@@ -7,6 +7,8 @@ import Blog from './component/Blog/Blog';
 import Review from './component/Review/Review';
 import Login from './component/Login/Login';
 import Services from './component/Services/Services';
+import Register from './component/Login/Register/Register';
+
 
 function App() {
   const router = createBrowserRouter([
@@ -15,8 +17,9 @@ function App() {
      {path:"/blog", element:<Blog />},
      {path:"/review", element:<Review />},
      {path:"/login", element:<Login />},
-     {path:"/services", element:<Services />}
-
+     {path:"/services", element:<Services />},
+     {path:"/register", element:<Register />}
+  
     ]}
   ])
   return (
