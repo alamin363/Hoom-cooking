@@ -11,20 +11,20 @@ const Carouse = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
   return (
-    <Slider {...settings}>
-    <div>
-      <img src={img1} alt="" />
-    </div>
-    <div>
-    <img src={img2} alt="" />
-    </div>
-    <div>
-    <img src={img3} alt="" />
-    </div>
-  </Slider>
+      <Slider {...settings}>
+      <div>
+        <img src={img1} alt="" />
+      </div>
+      <div>
+        <img src={img2} alt="" />
+      </div>
+      <div>
+        <img src={img3} alt="" />
+      </div>
+    </Slider>
   );
 };
 

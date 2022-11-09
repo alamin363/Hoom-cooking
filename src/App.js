@@ -16,7 +16,7 @@ function App() {
   const router = createBrowserRouter([
     {path:'/', element:<Main></Main> , children:[
      {path:"/", loader:() => fetch('http://localhost:5000/products'), element:<Home />},
-     {path:"/blog", element:<Blog />},
+     {path:"/blog",loader: () => fetch('http://localhost:5000/blog'), element:<Blog />},
      {path:"/review", element:<Review />},
      {path:"/login", element:<LogIn /> },
      {path:"/services",loader: () => fetch('http://localhost:5000/products'), element:<Services />},

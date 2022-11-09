@@ -48,7 +48,8 @@ const AuthContext = ({ children }) => {
     logInWithEmailAndPassword,
     LogOut,
     user,
-    LoginWithGoogle
+    LoginWithGoogle,
+    loader
   };
   return (
     <contextProvider.Provider value={authInfo}>

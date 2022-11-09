@@ -1,5 +1,6 @@
 import React from "react";
-import { FaCommentDollar, FaMehBlank, FaOutdent, FaRupeeSign, FaToggleOn } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import { FaOutdent, FaRupeeSign} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Cooking.css";
 const Cooking = ({ singleData }) => {
@@ -7,7 +8,13 @@ const Cooking = ({ singleData }) => {
     singleData;
   return (
     <div className="borders w-8/12 mb-5 ml-5">
-      <img className="w-full h-72" src={picture} alt="" />
+      <PhotoProvider>
+      <div className="foo">
+        <PhotoView src={picture}>
+          <img className="img" src={picture} alt="" />
+        </PhotoView>
+      </div>
+    </PhotoProvider>
       <h2 className="text-2xl ml-4">item name: {nameOfItem}</h2>
       <p className="ml-4 flex ">price: <FaRupeeSign className="ml-2"/>{balance}</p>
         <h1 className="text-2xl m-4">{title.length > 50 ? title.slice(0, 50) : title}</h1>
