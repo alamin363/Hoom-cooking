@@ -1,18 +1,22 @@
-import { Card } from 'flowbite-react';
-import React from 'react';
-
-const Cooking = () => {
+import React from "react";
+import { FaCommentDollar, FaMehBlank, FaOutdent, FaRupeeSign, FaToggleOn } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import "./Cooking.css";
+const Cooking = ({ singleData }) => {
+  const { nameOfItem, title, balance, picture,_id, email, details, company } =
+    singleData;
   return (
-    <div className="max-w-sm">
-  <Card imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg">
-    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      Noteworthy technology acquisitions 2021
-    </h5>
-    <p className="font-normal text-gray-700 dark:text-gray-400">
-      Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-    </p>
-  </Card>
-</div>
+    <div className="borders w-8/12 mb-5 ml-5">
+      <img className="w-full h-72" src={picture} alt="" />
+      <h2 className="text-2xl ml-4">item name: {nameOfItem}</h2>
+      <p className="ml-4 flex ">price: <FaRupeeSign className="ml-2"/>{balance}</p>
+        <h1 className="text-2xl m-4">{title.length > 50 ? title.slice(0, 50) : title}</h1>
+        <p className="m-3">{details.length > 100 ? details.slice(0,100) + "..." : details}</p>
+        <Link to={`/products/${_id}`}>
+          <button className="border hover:bg-slate-300 flex  px-5 py-3 m-4">Details <FaOutdent className="ml-4" /></button>
+        </Link>
+    
+    </div>
   );
 };
 

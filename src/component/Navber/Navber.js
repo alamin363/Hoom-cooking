@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import "flowbite-react";
 import "flowbite";
 import { Link, NavLink } from "react-router-dom";
 import navicon from "../../img/logo-cp.svg";
 import { Navbar } from "flowbite-react";
+import { contextProvider } from "../Context/AuthContext";
 const Navber = () => {
+  const {user,LogOut} = useContext(contextProvider)
   let activeStyle = {
     textDecoration: "underline",
   };
+  const LogOutNow = () =>{
+    LogOut()
+  }
   return (
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand to="https://flowbite.com/">
@@ -43,12 +48,17 @@ const Navber = () => {
         >
           Review
         </NavLink>
+       {
+        user?.uid ? 
+        <Link onClick={LogOutNow}>LogOut</Link>  
+        :
         <NavLink
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
           to="/login"
         >
           Login
         </NavLink>
+       }
       </Navbar.Collapse>
     </Navbar>
   );

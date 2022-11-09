@@ -12,7 +12,7 @@ import app from "../Firebase/Firebase.config";
 const auth = getAuth(app);
 export const contextProvider = createContext();
 const AuthContext = ({ children }) => {
-
+ 
   const [user, seTUser] = useState({})
   const [loader, setLoader] = useState(true)
   const provider = new GoogleAuthProvider();
@@ -25,9 +25,13 @@ const AuthContext = ({ children }) => {
   };
   useEffect(()=>{
     const unsebscribr = onAuthStateChanged(auth, currentUser => {
-     const user = currentUser.uid;
+     const user = currentUser?.uid;
      seTUser(currentUser)
      setLoader(false)
+
+     return () =>{
+      unsebscribr()
+     }
     })
   },[])
   const LogOut = () => {

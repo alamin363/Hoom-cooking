@@ -8,24 +8,25 @@ import Review from './component/Review/Review';
 import Services from './component/Services/Services';
 import Register from './component/Register/Register';
 import LogIn from './component/SingIn/LogIn';
-
+import ProductDetails from './component/Product/ProductDetails';
 
 
 
 function App() {
   const router = createBrowserRouter([
     {path:'/', element:<Main></Main> , children:[
-     {path:"/", element:<Home />},
+     {path:"/", loader:() => fetch('http://localhost:5000/products'), element:<Home />},
      {path:"/blog", element:<Blog />},
      {path:"/review", element:<Review />},
      {path:"/login", element:<LogIn /> },
-     {path:"/services", element:<Services />},
-     {path:"/register", element:<Register /> }
+     {path:"/services",loader: () => fetch('http://localhost:5000/products'), element:<Services />},
+     {path:"/register", element:<Register /> },
+     {path:"/products/:id", element:<ProductDetails /> , loader:({params}) => fetch(`http://localhost:5000/products/${params.id}`)}
   
     ]}
   ])
   return (
-   <RouterProvider router={router}></RouterProvider>
+    <RouterProvider router={router}></RouterProvider>
   );
 }
 
