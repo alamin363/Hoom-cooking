@@ -1,29 +1,36 @@
+import { Spinner } from 'flowbite-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { FaStreetView } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { contextProvider } from '../Context/AuthContext';
-import Reviews from '../Product/Reviews';
+import useTitle from '../Hooks/useTitel';
 import ReviewCard from './ReviewCard';
 
 const Review = () => {
-  const {user} = useContext(contextProvider)
+  const {user, loader} = useContext(contextProvider)
   const [review, setReview] = useState([])
- if (user.email) {
-   
- }
+   useTitle("review")
   useEffect(() =>{
-    fetch(`http://localhost:5000/review?email=${user.email}`)
+    fetch(`https://cooking-backend.vercel.app/review?email=${user?.email}`)
     .then(res => res.json())
     .then(data => setReview(data.resultWiteUser))
     
   },[user?.email])
-
+ 
+  if (!user?.email) {
+   return <div>
+    <h1>Plesh login</h1>
+    <Link to="/login" className='underlines m-5 text-blue-600'>Login Now</Link>
+   </div>
+  }
+  console.log(review);
   return (
     <div>
     <div className='grid justify-items-center'>
     <h1 className='flex text-2xl'>Your Reviews <FaStreetView className='ml-4' /></h1>
     </div>
       <div>
-      {review.map(review => <Reviews key={review._id} review={review} />)}
+      {review.map(review => <ReviewCard key={review._id} review={review} />)}
     </div>
     </div>
   );

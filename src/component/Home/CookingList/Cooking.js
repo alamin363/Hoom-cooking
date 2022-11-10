@@ -4,7 +4,7 @@ import { FaOutdent, FaRupeeSign} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Cooking.css";
 const Cooking = ({ singleData }) => {
-  const { nameOfItem, title, balance, picture,_id, email, details, company } =
+  const { nameOfItem, title, balance, picture,_id, email, details } =
     singleData;
   return (
     <div className="borders w-8/12 mb-5 ml-5">

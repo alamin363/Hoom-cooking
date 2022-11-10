@@ -6,13 +6,13 @@ import navicon from "../../img/logo-cp.svg";
 import { Navbar } from "flowbite-react";
 import { contextProvider } from "../Context/AuthContext";
 const Navber = () => {
-  const {user,LogOut} = useContext(contextProvider)
+  const { user, LogOut } = useContext(contextProvider);
   let activeStyle = {
     textDecoration: "underline",
   };
-  const LogOutNow = () =>{
-    LogOut()
-  }
+  const LogOutNow = () => {
+    LogOut();
+  };
   return (
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand to="https://flowbite.com/">
@@ -48,17 +48,21 @@ const Navber = () => {
         >
           Review
         </NavLink>
-       {
-        user?.uid ? 
-        <Link onClick={LogOutNow}>LogOut</Link>  
-        :
-        <NavLink
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          to="/login"
-        >
-          Login
-        </NavLink>
-       }
+        {user?.uid ? (
+          <NavLink
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            onClick={LogOutNow}
+          >
+            LogOut
+          </NavLink>
+        ) : (
+          <NavLink
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            to="/login"
+          >
+            Login
+          </NavLink>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

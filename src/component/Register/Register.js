@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { contextProvider } from "../Context/AuthContext";
+import useTitle from "../Hooks/useTitel";
 
 const Register = () => {
   const {RegisterWithEmailAndPassword} = useContext(contextProvider);
+  useTitle("Register")
   const handelInputFrom = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -14,7 +17,7 @@ const Register = () => {
       .then((userCreate) => {
         const user = userCreate.user;
         if (user) {
-          
+          toast.success("register succesfully")
         }
       })
       .catch((error) => {

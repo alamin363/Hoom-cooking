@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { FaAddressCard } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import useTitle from "../Hooks/useTitel";
 import ServiceCart from "../Services/ServiceCart";
 const Services = () => {
   const { allData } = useLoaderData();
+  useTitle("Services")
   const [modal, setModel] = useState(false);
   const toggleModal = (e) => {
     e.preventDefault();
     setModel(!modal);
   };
+  console.log(allData);
   // const [allData, setAllData] = useState({})
   // useEffect(() => {
-  //   fetch('http://localhost:5000/products')
+  //   fetch('https://cooking-backend.vercel.app/products')
   //   .then(res => res.json())
   //   .then(data => {
   //     setAllData(data.allData)
@@ -21,42 +24,45 @@ const Services = () => {
   const handelUserReviwe = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const message = form.message.value;
-    const rating = form.rating.value;
-    const img_url = form.img_url.value;
-    const product = {
-      name,
-      // nameOfItem,
-      message,
-      rating,
-      img_url,
-      // product_id: _id,
-      // picture,
-      // currentUser
-    }
-    console.log(product);
-    if (product) {
-      form.reset();
-      // setLoader(!loader)
+    const nameOfItem = form.name.value;
+    const email = form.email.value;
+    const title = form.message.value;
+    const balance = form.rating.value;
+    const picture = form.img_url.value;
+    const details = form.details.value;
+    console.log(details);
+    if (typeof(nameOfItem) !== "undefined" || (nameOfItem !== undefined || null)) {
+      const product = {
+        nameOfItem,
+        email,
+        title,
+        balance,
+        picture,
+        details,
+      };
+      console.log(product);
+      if (product) {
+        // form.reset();
+        // setLoader(!loader)
+      }
+      fetch(`https://cooking-backend.vercel.app/products`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(product),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("comment succesfuly");
+          } else {
+            toast.error("unauentication");
+          }
+        })
+        .catch((err) => toast.error(err.message));
     }
 
-    fetch(`http://localhost:5000/products`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(product),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          toast.success("comment succesfuly");
-        } else {
-          toast.error("unauentication");
-        }
-      })
-      .catch((err) => toast.error(err.message));
   };
 
   if (allData?.length < 1 || allData === null || allData === undefined) {
@@ -72,9 +78,11 @@ const Services = () => {
         </section>
       </div>
       <div>
+        <br />
+
         <button
           onClick={toggleModal}
-          className="border block ml-4 px-5 py-3 flex hover:bg-blue-400"
+          className="border block ml-4 px-5 py-3  hover:bg-blue-400"
           disabled={modal}
         >
           Add Product <FaAddressCard className="ml-3" />
@@ -110,34 +118,48 @@ const Services = () => {
                     name="name"
                     className="mb-5"
                     type="text"
-                    placeholder="input your name"
+                    placeholder="input of food name"
                     required
                   />
-                  <br />
+                  <input
+                    name="email"
+                    className="mb-5"
+                    type="text"
+                    placeholder="input your email"
+                    required
+                  />
                   <input
                     name="message"
                     className="mb-5"
                     type="text"
-                    placeholder="input your message"
+                    placeholder="input product Title"
                     required
                   />
                   <input
                     name="rating"
                     className="mb-5"
                     type="text"
-                    placeholder="rating now"
+                    placeholder="food price"
                     required
                   />
                   <input
                     name="img_url"
                     className="mb-5"
                     type="text"
-                    placeholder="input your img url"
+                    placeholder="input pood img url"
                     required
                   />
+                  <textarea
+                    placeholder="input of food details"
+                    name="details"
+                    id=""
+                    cols="30"
+                    rows="10"
+                    required
+                  ></textarea>
                   <button
                     type="submit"
-                    className="border text-white py-2 mb-2 px-4"
+                    className="border text-white py-2 m-2 px-4"
                   >
                     Submit
                   </button>

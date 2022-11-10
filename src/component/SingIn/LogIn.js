@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { contextProvider } from "../Context/AuthContext";
 import { FaAlignRight } from "react-icons/fa";
+import useTitle from "../Hooks/useTitel";
 const LogIn = () => {
   const { logInWithEmailAndPassword, LoginWithGoogle } =
     useContext(contextProvider);
-
+    useTitle("login")
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handelInputFrom = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,23 +21,26 @@ const LogIn = () => {
         const user = result.user;
         if (user) {
           toast.success("user Login succes");
+          navigate(from, { replace: true });
         }
         console.log(user);
       })
       .catch((err) => toast.error(err.message));
   };
-  const handelGoogleLogin = () =>{
+  const handelGoogleLogin = () => {
     LoginWithGoogle()
-    .then(result =>{
-      const user = result.user
-      toast.success("Login success", <FaAlignRight />)
-      alert("login success")
-      if (user) {
-      }
-    }).catch(err =>{
-      toast.error(err.message)
-    })
-  }
+      .then((result) => {
+        const user = result.user;
+        toast.success("Login success", <FaAlignRight />);
+        alert("login success");
+        if (user) {
+          navigate(from, { replace: true })
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="flex justify-center">
       <div className="grid items-center shadow-sm-light bg-gray-600 m-8 w-80 ">
@@ -66,7 +73,9 @@ const LogIn = () => {
             className="bg-gray-50  border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required=""
           />
-          <Link className="underline hover:text-white" to="/register">have a don't account </Link>
+          <Link className="underline hover:text-white" to="/register">
+            have a don't account{" "}
+          </Link>
           <div className="flex justify-center">
             <button
               className="btn  bg-[#4280E6] rounded mt-5 text-white  px-8 py-3 border-x-green-800"
@@ -78,7 +87,7 @@ const LogIn = () => {
         </form>
         <div className="flex justify-center">
           <button
-          onClick={handelGoogleLogin}
+            onClick={handelGoogleLogin}
             type="button"
             className="text-white w-52 bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 m-2"
           >

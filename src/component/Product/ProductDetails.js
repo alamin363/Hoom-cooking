@@ -3,10 +3,12 @@ import { FaArrowAltCircleDown, FaComment, FaCommentDots, FaRupeeSign } from "rea
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { contextProvider } from "../Context/AuthContext";
+import useTitle from "../Hooks/useTitel";
 import Reviews from "./Reviews";
 
 const ProductDetails = () => {
   const { data } = useLoaderData();
+  useTitle("Product")
   const {
     nameOfItem,
     title,
@@ -19,7 +21,7 @@ const ProductDetails = () => {
     about,
     company,
   } = data[0];
-  const { user, } = useContext(contextProvider);
+  const { user } = useContext(contextProvider);
   const [modal, setModel] = useState(false);
   const [userRivew, setUserReview] = useState([]);
   const [loader, setLoader] = useState(true)
@@ -61,14 +63,14 @@ const ProductDetails = () => {
       picture,
       currentUser
     };
-    console.log(reviews);
+    // console.log(reviews);
+    
     if (reviews) {
       form.reset();
       setLoader(!loader)
     }
-
    
-    fetch(`http://localhost:5000/review`, {
+    fetch(`https://cooking-backend.vercel.app/review`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -86,12 +88,12 @@ const ProductDetails = () => {
       .catch((err) => toast.error(err.message));
   };
   useEffect(() => {
-    fetch("http://localhost:5000/review")
+    fetch(`https://cooking-backend.vercel.app/review/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.data[0].name) {
           setUserReview(data?.data);
-          setLoader(!loader)
+          // setLoader(!loader)
         }
       });
   }, [loader]);

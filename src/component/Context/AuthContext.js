@@ -17,6 +17,7 @@ const AuthContext = ({ children }) => {
   const [loader, setLoader] = useState(true)
   const provider = new GoogleAuthProvider();
   const RegisterWithEmailAndPassword = (email, password) => {
+    
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const logInWithEmailAndPassword = (email, password) => {
@@ -38,6 +39,7 @@ const AuthContext = ({ children }) => {
     return signOut(auth);
   };
   const LoginWithGoogle = () =>{
+    setLoader(true)
     return signInWithPopup(auth, provider)
   }
 
