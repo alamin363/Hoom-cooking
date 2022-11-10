@@ -50,7 +50,7 @@ const LogIn = () => {
       .catch((err) => {
         toast.error(err.message);
       });
-  };
+  }
 
   return (
     <div className="flex justify-center">
@@ -85,7 +85,7 @@ const LogIn = () => {
             required=""
           />
           <Link className="underline hover:text-white" to="/register">
-            have a don't account{" "}
+            have a don't account
           </Link>
           <div className="flex justify-center">
             <button
