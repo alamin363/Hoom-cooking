@@ -34,7 +34,7 @@ const Services = () => {
       // product_id: _id,
       // picture,
       // currentUser
-    };
+    }
     console.log(product);
     if (product) {
       form.reset();
