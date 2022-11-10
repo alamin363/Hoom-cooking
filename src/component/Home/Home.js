@@ -16,7 +16,7 @@ const Home = () => {
   useTitle("Home");
   return (
     <div className="bg-[#F1F5F8] container">
-      <div className="xl:ml-40">
+      <div className="wide-fit">
         <Carousel />
       </div>
       <div className="mt-10 mb-5 grid grid-cols-1 md:grid-cols-2 justify-items-center">

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaArrowAltCircleDown, FaComment, FaCommentDots, FaRupeeSign } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { Navigate, useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { contextProvider } from "../Context/AuthContext";
 import useTitle from "../Hooks/useTitel";
@@ -26,6 +26,7 @@ const ProductDetails = () => {
   const [userRivew, setUserReview] = useState([]);
   const [loader, setLoader] = useState(true)
   const [currentUser, setCurrentUser] = useState({})
+  const [login, setLogin] = useState(false)
   useEffect(()=>{
     if (user?.email) {
       setCurrentUser(user.email)
@@ -46,6 +47,7 @@ const ProductDetails = () => {
   //   document.body.classList.remove("active-modal")
   // }
 
+  const location = useLocation()
   const handelUserReviwe = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -64,7 +66,6 @@ const ProductDetails = () => {
       currentUser
     };
     // console.log(reviews);
-    
     if (reviews) {
       form.reset();
       setLoader(!loader)
@@ -97,6 +98,10 @@ const ProductDetails = () => {
         }
       });
   }, [loader]);
+  if (login) {
+    return <Navigate to='/login' state={{from: location}} replace ></Navigate>
+  }
+
   return (
     <main>
       <div className="grid justify-items-center">
@@ -121,13 +126,18 @@ const ProductDetails = () => {
           <h1 className="text-2xl m-4">{title}</h1>
           <p className="m-3">{details}</p>
 
-          <button
+          {
+            user?.uid ? <button
             onClick={toggleModal}
-            className="border block ml-4 px-5 py-3 flex"
+            className="border block ml-4 px-5 py-3"
             disabled={modal}
           >
             Review Now <FaComment className="ml-3" />
           </button>
+          :
+
+          <button onClick={() => setLogin(true)} className="border block ml-4 px-5 py-3">Review Now</button>
+          }
         </div>
       </div>
 

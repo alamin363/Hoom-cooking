@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaAddressCard } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { Navigate, useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { contextProvider } from "../Context/AuthContext";
 import useTitle from "../Hooks/useTitel";
 import ServiceCart from "../Services/ServiceCart";
 const Services = () => {
+  const { user } = useContext(contextProvider);
   const [load, Loadrs] = useState(true);
   const [allData, setAllData] = useState([]);
+  const [slider, setSlider] = useState(false)
   useTitle("Services");
-
+  const location = useLocation()
   const [modal, setModel] = useState(false);
   const toggleModal = (e) => {
     e.preventDefault();
@@ -40,9 +43,10 @@ const Services = () => {
         details,
       };
       if (product) {
-        Loadrs(!load)
+        Loadrs(!load);
         form.reset();
       }
+      
       fetch(`https://cooking-backend.vercel.app/products`, {
         method: "POST",
         headers: {
@@ -61,12 +65,15 @@ const Services = () => {
         .catch((err) => toast.error(err.message));
     }
   };
-
+   if(slider){
+    return <Navigate to='/login' state={{from: location}} replace ></Navigate>
+  }
   if (allData?.length < 1 || allData === null || allData === undefined) {
     return <h1>Loading ...</h1>;
   }
+
   return (
-    <div>
+    <div className="container">
       <div>
         <section className="grid grid-cols-1 md:grid-cols-2 justify-items-center">
           {allData?.map((singleData) => (
@@ -77,13 +84,17 @@ const Services = () => {
       <div>
         <br />
 
-        <button
+        { user?.uid ? <button
           onClick={toggleModal}
           className="border block ml-4 px-5 py-3  hover:bg-blue-400"
           disabled={modal}
         >
           Add Product <FaAddressCard className="ml-3" />
         </button>
+         :
+         <button className="border block ml-4 px-5 py-3  hover:bg-blue-400" onClick={() => setSlider(true)}>Add Product</button>
+
+        }
       </div>
       <div>
         <div className="flex justify-center">

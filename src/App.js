@@ -44,9 +44,7 @@ function App() {
         {
           path: "/products/:id",
           element: (
-            <PrivetRouter>
               <ProductDetails />
-            </PrivetRouter>
           ),
           loader: ({ params }) =>
             fetch(`https://cooking-backend.vercel.app/products/${params.id}`),
