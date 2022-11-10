@@ -18,7 +18,7 @@ const Navber = () => {
       <Navbar.Brand to="https://flowbite.com/">
         <img src={navicon} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Sumaiya Bagery
+          HooM Cook
         </span>
       </Navbar.Brand>
       <Navbar.Toggle />
@@ -42,12 +42,15 @@ const Navber = () => {
         >
           Blog
         </NavLink>
-        <NavLink
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          to="/review"
-        >
-          Review
-        </NavLink>
+        {user?.uid && (
+          <NavLink
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            to="/review"
+          >
+           My Review
+          </NavLink>
+        )}
+
         {user?.uid ? (
           <NavLink
             style={({ isActive }) => (isActive ? activeStyle : undefined)}

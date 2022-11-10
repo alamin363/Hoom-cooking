@@ -27,7 +27,7 @@ const ProductDetails = () => {
   const [loader, setLoader] = useState(true)
   const [currentUser, setCurrentUser] = useState({})
   useEffect(()=>{
-    if (user.email) {
+    if (user?.email) {
       setCurrentUser(user.email)
     }
   },[user])
@@ -91,7 +91,7 @@ const ProductDetails = () => {
     fetch(`https://cooking-backend.vercel.app/review/${_id}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data?.data[0].name) {
+        if (data?.data[0]?.name) {
           setUserReview(data?.data);
           // setLoader(!loader)
         }

@@ -9,10 +9,7 @@ const ServiceCart = ({ singleData }) => {
     singleData;
     const {loader, user} = useContext(contextProvider)
     const location = useLocation()
-    if (!user?.uid) {
 
-      return <Navigate to='/login' state={{from: location}} replace ></Navigate>;
-    }
   return (
     <div className="borders w-8/12 mb-10 ml-5">
       {/* <img className="w-full h-72" src={picture} alt="" /> */}

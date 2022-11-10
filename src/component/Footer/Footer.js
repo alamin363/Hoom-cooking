@@ -6,9 +6,9 @@ const Footer = () => {
     <footer className="bg-[#232F3E] dark:bg-gray-900">
       <div className="grid grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
         <div>
-          <h2 className="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
-            Company
-          </h2>
+          <Link to='/' className="mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+          Sumaiya Bagery
+          </Link>
           <ul className="text-gray-500 dark:text-gray-400">
             <li className="mb-4">
               <Link to='' className=" hover:underline">
@@ -21,12 +21,12 @@ const Footer = () => {
               </Link>
             </li>
             <li className="mb-4">
-              <Link to='' className="hover:underline">
+              <Link to='/service' className="hover:underline">
                 Brand Center
               </Link>
             </li>
             <li className="mb-4">
-              <Link to='' className="hover:underline">
+              <Link to='/blog' className="hover:underline">
                 Blog
               </Link>
             </li>
@@ -38,7 +38,7 @@ const Footer = () => {
           </h2>
           <ul className="text-gray-500 dark:text-gray-400">
             <li className="mb-4">
-              <Link to='' className="hover:underline">
+              <Link to='/' className="hover:underline">
                 Discord Server
               </Link>
             </li>

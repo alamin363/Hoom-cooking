@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAddressCard } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import useTitle from "../Hooks/useTitel";
 import ServiceCart from "../Services/ServiceCart";
 const Services = () => {
-  const { allData } = useLoaderData();
-  useTitle("Services")
+  const [load, Loadrs] = useState(true);
+  const [allData, setAllData] = useState([]);
+  useTitle("Services");
+
   const [modal, setModel] = useState(false);
   const toggleModal = (e) => {
     e.preventDefault();
     setModel(!modal);
   };
-  console.log(allData);
-  // const [allData, setAllData] = useState({})
-  // useEffect(() => {
-  //   fetch('https://cooking-backend.vercel.app/products')
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     setAllData(data.allData)
-  //   })
-  // },[allData.length])
+  // console.log(allData);
+  useEffect(() => {
+    fetch("https://cooking-backend.vercel.app/products")
+      .then((res) => res.json())
+      .then((data) => setAllData(data.allData));
+  }, [load]);
+
   const handelUserReviwe = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -30,8 +30,7 @@ const Services = () => {
     const balance = form.rating.value;
     const picture = form.img_url.value;
     const details = form.details.value;
-    console.log(details);
-    if (typeof(nameOfItem) !== "undefined" || (nameOfItem !== undefined || null)) {
+    if (typeof nameOfItem !== "undefined" || nameOfItem !== undefined || null) {
       const product = {
         nameOfItem,
         email,
@@ -40,10 +39,9 @@ const Services = () => {
         picture,
         details,
       };
-      console.log(product);
       if (product) {
-        // form.reset();
-        // setLoader(!loader)
+        Loadrs(!load)
+        form.reset();
       }
       fetch(`https://cooking-backend.vercel.app/products`, {
         method: "POST",
@@ -62,7 +60,6 @@ const Services = () => {
         })
         .catch((err) => toast.error(err.message));
     }
-
   };
 
   if (allData?.length < 1 || allData === null || allData === undefined) {
@@ -94,11 +91,10 @@ const Services = () => {
             <div className="modal w-80 h-full  bg-green-900">
               {/* type body to remove */}
               {/* <div
-          onClick={toggleModal}
-          className="overlay text-white top-0 right-0 bottom-0 left-0 fixed"
-        >
-          {" "}
-        </div> */}
+                onClick={toggleModal}
+                 className="overlay text-white top-0 right-0 bottom-0 left-0 fixed"
+                  >
+                 </div> */}
 
               <div className="modal-content">
                 <div className="flex justify-between">

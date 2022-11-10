@@ -4,10 +4,9 @@ import { FaAddressCard } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const ReviewCard = ({ review }) => {
-  const { img_url, message, name, picture,rating, _id, nameOfItem } = review;
+  const { img_url, message, name, picture, rating, _id, nameOfItem } = review;
   const [modal, setModel] = useState(false);
   // const [loader, setLoader] = useState(true);
-  const [editreview, setEditreview] = useState({});
   const handeldelete = (id) => {
     fetch(`https://cooking-backend.vercel.app/review/${id}`, {
       method: "DELETE",
@@ -43,33 +42,25 @@ const ReviewCard = ({ review }) => {
         product_id: _id,
         picture,
       };
-      console.log(reviews);
       if (reviews) {
-        setEditreview(reviews);
-        form.reset();
+        // form.reset();
         // setLoader(!loader);
       }
-    }
-  };
-  const editReview = (id) => {
-    fetch(`https://cooking-backend.vercel.app/review/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(editreview)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          // alert("edit success");
-          console.log(data)
-          if (data.data.acknowledged) {
-            alert("update sucesfuly")
+      fetch(`https://cooking-backend.vercel.app/review/${_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(reviews),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            alert("edit success");
           }
-        }
-      });
-      console.log(id)
+        });
+      console.log(_id);
+    }
   };
 
   return (
@@ -114,7 +105,6 @@ const ReviewCard = ({ review }) => {
               >
                 Edit Review <FaAddressCard className="ml-3" />
               </button>
-              
             </Table.Cell>
           </Table.Row>
         </Table.Body>
@@ -145,7 +135,7 @@ const ReviewCard = ({ review }) => {
                 onSubmit={handelUserReviwe}
                 className="grid justify-items-center mt-2"
               >
-              <p className="mb-5 mt-2 text-white">your name</p>
+                <p className="mb-5 mt-2 text-white">your name</p>
                 <input
                   name="name"
                   className="mb-5"
@@ -181,9 +171,16 @@ const ReviewCard = ({ review }) => {
                   required
                 /> */}
                 <p className="mb-5 mt-2 text-white">Image url</p>
-                <textarea name="img_url" placeholder="input your img url" className="mb-5" id="" cols="30" defaultValue={img_url} rows="10"></textarea>
+                <textarea
+                  name="img_url"
+                  placeholder="input your img url"
+                  className="mb-5"
+                  id=""
+                  cols="30"
+                  defaultValue={img_url}
+                  rows="10"
+                ></textarea>
                 <button
-                onClick={() =>editReview(_id) }
                   type="submit"
                   className="border text-white py-2 mb-2 px-4"
                 >

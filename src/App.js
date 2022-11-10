@@ -38,13 +38,16 @@ function App() {
         { path: "/login", element: <LogIn /> },
         {
           path: "/services",
-          loader: () => fetch("https://cooking-backend.vercel.app/products"),
           element: <Services />,
         },
         { path: "/register", element: <Register /> },
         {
           path: "/products/:id",
-          element: <ProductDetails />,
+          element: (
+            <PrivetRouter>
+              <ProductDetails />
+            </PrivetRouter>
+          ),
           loader: ({ params }) =>
             fetch(`https://cooking-backend.vercel.app/products/${params.id}`),
         },

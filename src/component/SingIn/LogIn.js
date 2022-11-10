@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { contextProvider } from "../Context/AuthContext";
@@ -7,10 +7,18 @@ import useTitle from "../Hooks/useTitel";
 const LogIn = () => {
   const { logInWithEmailAndPassword, LoginWithGoogle } =
     useContext(contextProvider);
-    useTitle("login")
+  useTitle("login");
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+
+  const hadelJwt = () => {
+    fetch(`https://cooking-backend.vercel.app/login`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
+
   const handelInputFrom = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -19,6 +27,7 @@ const LogIn = () => {
     logInWithEmailAndPassword(email, password)
       .then((result) => {
         const user = result.user;
+        hadelJwt()
         if (user) {
           toast.success("user Login succes");
           navigate(from, { replace: true });
@@ -31,16 +40,18 @@ const LogIn = () => {
     LoginWithGoogle()
       .then((result) => {
         const user = result.user;
+        hadelJwt()
         toast.success("Login success", <FaAlignRight />);
         alert("login success");
         if (user) {
-          navigate(from, { replace: true })
+          navigate(from, { replace: true });
         }
       })
       .catch((err) => {
         toast.error(err.message);
       });
   };
+
   return (
     <div className="flex justify-center">
       <div className="grid items-center shadow-sm-light bg-gray-600 m-8 w-80 ">
